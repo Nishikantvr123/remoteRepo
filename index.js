@@ -1,25 +1,19 @@
 const express = require('express');
+const path = require('path');
+
 const app = express();
-const port = 3000;
 
-// Set view engine to EJS
+// Set EJS as the view engine
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files (optional, for CSS/images)
-app.use(express.static('public'));
-
-// Home route
+// Route for home page
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Home Page' });
+    res.render('index', { message: 'Hello World' });
 });
 
-// Dynamic user route
-app.get('/user/:name', (req, res) => {
-  const userName = req.params.name;
-  res.render('user', { name: userName });
-});
-
-// Start server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
